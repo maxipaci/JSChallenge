@@ -1,8 +1,10 @@
 const InMemoryOperationsRepo = require("./InMemory/InMemoryOperationsRepo");
+const InMemoryOperationTypesRepo = require("./InMemory/InMemoryOperationsRepo");
 
 class RepositoryProvider {
     constructor() {
         this.operationRepo = new InMemoryOperationsRepo();
+        this.operationTypeRepo = new InMemoryOperationTypesRepo();
     }
 
     static getInstance() {
@@ -14,6 +16,10 @@ class RepositoryProvider {
 
     getOperationRepo() {
         return this.operationRepo;
+    }
+
+    getOperationTypeRepo() {
+        return this.operationTypeRepo;
     }
 }
 
