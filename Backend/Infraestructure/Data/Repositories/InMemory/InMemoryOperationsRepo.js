@@ -28,6 +28,15 @@ class InMemoryOperationsRepo {
         this.operations = this.operations.filter(op => op.id != id);
     }
 
+    update(operation){
+        this.operations.map(op => {
+            if (op.id == operation.id) {
+                op = operation;
+            }
+        });
+        return operation;
+    }
+
 }
 
 module.exports = InMemoryOperationsRepo;

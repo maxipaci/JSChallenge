@@ -31,6 +31,21 @@ class OperationService{
 
         await this.operationsRepo.delete(id);
     }
+
+    async updateOperation(operation){
+        if(Object.values(OperationTypeEnum).indexOf(operation.typeId) == -1){
+            throw new Error("Invalid typeId")
+        }
+
+        let op = await this.operationsRepo.getById(operation.id);
+
+        if(op == null){
+            throw new Error("Invalid operation ID (" + operation.id + ")");
+        }
+
+        op = await this.operationsRepo.update(operation);
+        return op;
+    }
 }
 
 module.exports = OperationService;

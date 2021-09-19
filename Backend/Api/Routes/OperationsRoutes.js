@@ -31,4 +31,16 @@ router.delete('/operations', async function(req, res) {
     }
 })
 
+router.put('/operations', async function(req, res) {
+    try{
+        const operation = await provider.opreationService().updateOperation(req.body);
+        res.status(200).send({
+            message : "Operation succesfullt updated",
+            operation : operation    
+        })
+    } catch (e) {
+        res.status(422).send({message : e.message});
+    }
+})
+
 module.exports = router;
