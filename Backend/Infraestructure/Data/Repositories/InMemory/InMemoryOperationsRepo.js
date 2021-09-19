@@ -13,7 +13,7 @@ class InMemoryOperationsRepo {
     }
 
     nextId() {
-        return this.operations[this.operations.length - 1].id + 1;
+        return this.operations.length > 0 ? this.operations[this.operations.length - 1].id + 1 : 1;
     }
 
     getAll(){
@@ -22,6 +22,10 @@ class InMemoryOperationsRepo {
 
     add(operation){
         this.operations.push(operation);
+    }
+
+    delete(id){
+        this.operations = this.operations.filter(op => op.id != id);
     }
 
 }

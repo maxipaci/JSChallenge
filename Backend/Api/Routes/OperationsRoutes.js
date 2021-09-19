@@ -21,4 +21,14 @@ router.get('/operations', async function (req, res) {
     }
 });
 
+
+router.delete('/operations', async function(req, res) {
+    try{
+        await provider.opreationService().deleteOperation(req.body.operationId);
+        res.status(200).send({message : "Operation succesfully deleted"});
+    } catch (e) {
+        res.status(422).send({message : e.message});
+    }
+})
+
 module.exports = router;

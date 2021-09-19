@@ -21,6 +21,16 @@ class OperationService{
         await this.operationsRepo.add(operation);
         return operation;
     }
+
+    async deleteOperation(id){
+        const op = await this.operationsRepo.getById(id);
+
+        if(op == null){
+            throw new Error("Invalid operation ID (" + id + ")");
+        }
+
+        await this.operationsRepo.delete(id);
+    }
 }
 
 module.exports = OperationService;
