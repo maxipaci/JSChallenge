@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const operationRoute = require('./routes/OperationsRoutes.js');
 
 const corsOptions = {
     origin: '*',
@@ -19,10 +20,11 @@ const myLogger = function (req, res, next) {
 
 app.use(myLogger);
 
-
 app.get('/', function (req, res, next) {
     res.send({ version: 1.0 });
 });
+
+app.use('/', operationRoute);
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('app listening on port 5000');
