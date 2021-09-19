@@ -1,9 +1,10 @@
 const Operation = require(process.cwd() + '\\Core\\Models\\Operation.js');
+const OperationTypeEnum = require(process.cwd() + '\\Core\\Enums\\OperationTypeEnum.js');
 
 class InMemoryOperationsRepo {
     constructor() {
         this.operations = [
-            new Operation(1, "comida", 200, new Date(), 3)
+            new Operation(1, "comida", 200, new Date(), OperationTypeEnum.INGRESO)
         ];
     }
 

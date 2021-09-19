@@ -1,3 +1,5 @@
+const OperationTypeEnum = require('../Enums/OperationTypeEnum.js');
+
 class OperationService{
 
     constructor(operationsRepo){
@@ -10,6 +12,10 @@ class OperationService{
     }
 
     async addOperation(operation){
+        if(Object.values(OperationTypeEnum).indexOf(operation.typeId) == -1){
+            throw new Error("Invalid typeId")
+        }
+
         operation.id = await this.operationsRepo.nextId();
         operation.date = new Date();
         await this.operationsRepo.add(operation);
