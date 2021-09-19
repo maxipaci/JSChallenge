@@ -1,5 +1,5 @@
 
-import './CSS/Screen.css';
+import './CSS/HomeScreen.css';
 import * as React from 'react';
 
 export default class screen2 extends React.Component {
@@ -10,7 +10,7 @@ export default class screen2 extends React.Component {
       render(){
         return (
     
-            <div className="App-header">
+            <div id = "body">
                  <p>2</p>
                  
            </div> 
