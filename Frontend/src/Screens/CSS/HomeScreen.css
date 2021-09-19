@@ -1,35 +1,27 @@
 
 
-#para{
+#list{
   display: flex;
   flex-direction: column;
   justify-content: end;
   flex: 1;
 }
 
-#boton{
+#button-container{
   display: flex;
   flex: 1;
   align-items: flex-start;
   justify-content: center;
 }
 
-#but{
+#button{
   display: flex;
   flex: 1;
   background-color: coral;
 }
 
-#balance{
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
 
-
-.App-header {
+#body {
   background-color: #282c34;
   display: flex;
   flex: 1;
