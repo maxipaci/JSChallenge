@@ -14,7 +14,7 @@ router.post('/operations', async function (req, res, next) {
 
 router.get('/operations', async function (req, res) {
     try {
-        const operations = await provider.opreationService().getOperations();
+        const operations = await provider.opreationService().getOperations(req.query.limit);
         res.status(200).send(operations);
     } catch (e) {
         res.status(422).send({ message: e.message });

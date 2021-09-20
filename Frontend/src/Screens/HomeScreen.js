@@ -20,7 +20,8 @@ export default class HomeScreen extends React.Component {
 
   fetchOperations = async () => {
     try {
-        let response = await new HttpClient().get('/operations');
+        let params = '?limit=' + 10;
+        let response = await new HttpClient().get('/operations' + params);
         let str = response.data;
         this.setState({ operations: str });
     } catch (e) {

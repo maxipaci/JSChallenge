@@ -8,13 +8,19 @@ class OperationService{
         this.operationTypeService = operationTypeService;
     }
 
-    async getOperations(){
+    async getOperations(limit = null){
         let operations = await this.operationsRepo.getAll();
+        
+        if(limit != null){
+            operations = operations.slice(- limit);
+        }
+
         let ops = await Promise.all(operations.map(async (op) => {
             var type = await this.operationTypeService.getById(op.typeId);
             return new OperationDto(op.id, op.concept, op.amount, op.date, type.description);
         }))
-        return ops;
+        
+        return ops.reverse();
     }
 
     async addOperation(operation){
