@@ -10,13 +10,15 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      operations : []     
+      operations : [],
+      balance : 0     
     }
     this.delete = this.delete.bind(this);
   }
 
   async componentDidMount() {
     await this.fetchOperations();
+    await this.fetchBalance();
   };
 
   fetchOperations = async () => {
@@ -29,6 +31,16 @@ export default class HomeScreen extends React.Component {
         console.log(e);
     }      
 };
+
+  fetchBalance = async () => {
+    try{
+      let response = await new HttpClient().get('/operations/balance');
+      let str = response.data;
+      this.setState({ balance: str.balance });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   sum(num1, num2){
     return num1 + num2;
@@ -65,6 +77,7 @@ export default class HomeScreen extends React.Component {
   async delete(id){
     await this.deleteElement(id);
     await this.fetchOperations();
+    await this.fetchBalance();
   }
 
   renderList(){
@@ -87,7 +100,7 @@ export default class HomeScreen extends React.Component {
     return ( 
        <div id = "body">
             <div id = "tittle">
-              <p id = "tittle-text">Balance Actual - $ 300</p>
+              <p id = "tittle-text">Balance Actual - $ {this.state.balance}</p>
             </div>
             <div id = "tittle">
               <p id = "tittle-text">Ultimas 10 Operaciones</p>

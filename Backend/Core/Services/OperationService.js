@@ -19,8 +19,22 @@ class OperationService{
             var type = await this.operationTypeService.getById(op.typeId);
             return new OperationDto(op.id, op.concept, op.amount, op.date, type.description);
         }))
-        
+
         return ops.reverse();
+    }
+
+    async getBalance(){
+        let operations = await this.operationsRepo.getAll();
+
+        let amounts = operations.map(op => {
+            if(op.typeId == OperationTypeEnum.INGRESO){
+                return op.amount;
+            } else {
+                return -op.amount;
+            }
+        })
+
+        return amounts.reduce((a, b) => a + b, 0);
     }
 
     async addOperation(operation){

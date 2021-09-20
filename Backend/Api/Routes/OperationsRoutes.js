@@ -43,4 +43,13 @@ router.put('/operations', async function(req, res) {
     }
 })
 
+router.get('/operations/balance', async function (req, res) {
+    try {
+        const balance = await provider.opreationService().getBalance();
+        res.status(200).send({balance : balance});
+    } catch (e) {
+        res.status(422).send({ message: e.message });
+    }
+});
+
 module.exports = router;
