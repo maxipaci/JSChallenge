@@ -4,7 +4,12 @@ const OperationTypeEnum = require(process.cwd() + '\\Core\\Enums\\OperationTypeE
 class InMemoryOperationsRepo {
     constructor() {
         this.operations = [
-            new Operation(1, "comida", 200, new Date(), OperationTypeEnum.INGRESO)
+            new Operation(1, "comida", 500, new Date(), OperationTypeEnum.EGRESO),
+            new Operation(2, "nafta", 200, new Date(), OperationTypeEnum.EGRESO),
+            new Operation(3, "ropa", 150, new Date(), OperationTypeEnum.EGRESO),
+            new Operation(4, "impuestos", 400, new Date(), OperationTypeEnum.EGRESO),
+            new Operation(5, "comida", 600, new Date(), OperationTypeEnum.EGRESO),
+            new Operation(6, "salario", 10000, new Date(), OperationTypeEnum.INGRESO),
         ];
     }
 

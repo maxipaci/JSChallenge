@@ -1,14 +1,20 @@
+const OperationDto = require('../Dtos/OperationDto.js');
 const OperationTypeEnum = require('../Enums/OperationTypeEnum.js');
 
 class OperationService{
 
-    constructor(operationsRepo){
+    constructor(operationsRepo, operationTypeService){
         this.operationsRepo = operationsRepo;
+        this.operationTypeService = operationTypeService;
     }
 
     async getOperations(){
         let operations = await this.operationsRepo.getAll();
-        return operations;
+        let ops = await Promise.all(operations.map(async (op) => {
+            var type = await this.operationTypeService.getById(op.typeId);
+            return new OperationDto(op.id, op.concept, op.amount, op.date, type.description);
+        }))
+        return ops;
     }
 
     async addOperation(operation){

@@ -1,5 +1,5 @@
 const InMemoryOperationsRepo = require("./InMemory/InMemoryOperationsRepo");
-const InMemoryOperationTypesRepo = require("./InMemory/InMemoryOperationsRepo");
+const InMemoryOperationTypesRepo = require("./InMemory/InMemoryOperationTypesRepo");
 
 class RepositoryProvider {
     constructor() {

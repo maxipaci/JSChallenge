@@ -11,7 +11,7 @@ class Provider {
     }
 
     opreationService() {
-        return new OperationService(reposProvider.getOperationRepo());
+        return new OperationService(reposProvider.getOperationRepo(), reposProvider.getOperationTypeRepo());
     }
 }
 
