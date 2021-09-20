@@ -8,19 +8,15 @@ export default class ListHeader extends Component {
             <div id = "header-container">
                 <Label
                     flex={1}
-                    color={"blue"}
                     text={"Tipo"}/>
-                    <Label
+                <Label
                     flex={1}
-                    color={"red"}
                     text={"Monto"}/>        
-                    <Label
+                <Label
                     flex={1}
-                    color={"black"}
                     text={"Fecha"}/>
-                    <Label
+                <Label
                     flex={1}
-                    color={"black"}
                     text={"Concepto"}/>
             </div>
         );

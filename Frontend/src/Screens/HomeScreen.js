@@ -4,7 +4,7 @@ import { HttpClient } from '../services/HttpClient';
 import ListElement from '../Components/ListElement.js';
 import ListHeader from '../Components/ListHeader';
 import { ScrollView } from 'react-native-gesture-handler';
-import { StyleSheet, View} from 'react-native';
+import { View} from 'react-native';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -54,10 +54,10 @@ export default class HomeScreen extends React.Component {
       return (
         <View>
           <ListElement
-          type={op.type}
-          amount={op.amount}
-          date={this.formatDate(new Date(op.date))}
-          concept={op.concept}/>
+            type={op.type}
+            amount={op.amount}
+            date={this.formatDate(new Date(op.date))}
+            concept={op.concept}/>
         </View>
       )
     })
@@ -72,29 +72,12 @@ export default class HomeScreen extends React.Component {
             <div id = "tittle">
               <p id = "tittle-text">Ultimas 10 Operaciones</p>
             </div>
-            <ListHeader/>
-            
+            <ListHeader/>  
               <View style={{flex: 8, width: '90%', display: 'flex', margin: "10px"}}>
-                <ScrollView style={{flex:1, display: 'flex'}}>
-              
-                {this.renderList()}
-             
-
+                <ScrollView style={{flex:1, display: 'flex'}}>           
+                  {this.renderList()}           
                 </ScrollView>
-              </View>
-              
-              
-              
-
-
-
-
-              
-
-            
-              
-              
-            
+              </View>                  
             <div id = "button-container">
               <button id = "button" onClick={this.nav.bind(this)}>
                 <p id = "txt-button">Agregar</p>
@@ -104,23 +87,3 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#FAFAFA',
-  },
-  contentContainer: {
-      height :"100%"
-  },
-  containerScroll: {
-      backgroundColor:"blue",
-      width:"100%",
-      height: "100%",
-      display: "flex",
-      marginBottom: 0,
-      paddingBottom: 0,
-      marginTop: '0%',
-  },
-});
