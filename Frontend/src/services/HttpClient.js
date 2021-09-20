@@ -24,6 +24,15 @@ export class HttpClient {
         }
     }
 
+    async delete(url, jsonBody = {}) {
+        try {
+            const response = await this.http.delete(url, {data : JSON.stringify(jsonBody)});
+            return response;
+        } catch (e) {
+            this.handleError(e);
+        }
+    }
+
     handleError(e) {
             throw e;
     }

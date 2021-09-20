@@ -4,6 +4,16 @@ import Label from './Label';
 import './CSS/ListElement.css';
 
 export default class ListElement extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.deleteElement = this.deleteElement.bind(this);
+    };
+
+    async deleteElement(){
+        await this.props.onPressDelete(this.props.id)
+    }
+
     render() {
         return (
             <div id = "element">
@@ -31,7 +41,7 @@ export default class ListElement extends Component {
                             border: "1px solid #FAFAFA",
                             borderRadius: "5px"
                         }}
-                        onPress = {this.props.onPressDelete}>
+                        onPress = {this.deleteElement}>
                         <Text style={{fontWeight: 600, color: "white"}}>
                             Eliminar
                         </Text>

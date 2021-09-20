@@ -12,6 +12,7 @@ export default class HomeScreen extends React.Component {
     this.state = {
       operations : []     
     }
+    this.delete = this.delete.bind(this);
   }
 
   async componentDidMount() {
@@ -50,15 +51,33 @@ export default class HomeScreen extends React.Component {
     return dd + '/' + mm + '/' + yyyy;
   }
 
+  async deleteElement(id){
+    try {
+      let body = {
+        operationId : id
+      }
+      let response = await new HttpClient().delete('/operations', body);
+    } catch (e) {
+        console.log(e);
+    } 
+  }
+
+  async delete(id){
+    await this.deleteElement(id);
+    await this.fetchOperations();
+  }
+
   renderList(){
     return this.state.operations.map(op => {
       return (
-        <View>
+        <View key={op.id}>
           <ListElement
             type={op.type}
             amount={op.amount}
             date={this.formatDate(new Date(op.date))}
-            concept={op.concept}/>
+            concept={op.concept}
+            onPressDelete={this.delete}
+            id={op.id}/>
         </View>
       )
     })
