@@ -1,0 +1,21 @@
+#element{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: #787878;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+#container{
+    display: flex;
+    flex: 2;   
+}
+
+#options{
+    display: flex;
+    flex: 1;
+    background-color: white;
+    border: 1px solid #FAFAFA;
+    border-radius: 5px;
+}
