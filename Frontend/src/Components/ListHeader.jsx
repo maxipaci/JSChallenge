@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './CSS/ListHeader.css';
-import Label from './Label';
+import Label from './Label.jsx';
 
 export default class ListHeader extends Component {
     render() {

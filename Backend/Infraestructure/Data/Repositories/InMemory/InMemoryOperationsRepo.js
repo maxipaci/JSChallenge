@@ -34,11 +34,14 @@ class InMemoryOperationsRepo {
     }
 
     update(operation){
-        this.operations.map(op => {
+        this.operations = this.operations.map(op => {
             if (op.id == operation.id) {
-                op = operation;
+                return new Operation(operation.id, operation.concept, operation.amount, operation.date, operation.typeId);
             }
+
+            return op
         });
+        console.log(this.operations)
         return operation;
     }
 

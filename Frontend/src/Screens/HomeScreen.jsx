@@ -1,19 +1,25 @@
 import './CSS/HomeScreen.css';
 import * as React from 'react';
 import { HttpClient } from '../services/HttpClient';
-import ListElement from '../Components/ListElement.js';
-import ListHeader from '../Components/ListHeader';
+import ListElement from '../Components/ListElement.jsx';
+import ListHeader from '../Components/ListHeader.jsx';
+import EditModal from '../Components/EditModal.jsx';
 import { ScrollView } from 'react-native-gesture-handler';
-import { View} from 'react-native';
+import { View, Modal} from 'react-native';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       operations : [],
-      balance : 0     
+      balance : 0,
+      modalVisibility : false,
+      editOperation: {}     
     }
     this.delete = this.delete.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.editOperation = this.editOperation.bind(this);
   }
 
   async componentDidMount() {
@@ -40,10 +46,6 @@ export default class HomeScreen extends React.Component {
     } catch (e) {
       console.log(e);
     }
-  }
-
-  sum(num1, num2){
-    return num1 + num2;
   }
   
   nav(){
@@ -80,6 +82,29 @@ export default class HomeScreen extends React.Component {
     await this.fetchBalance();
   }
 
+  async closeModal(){
+    await this.fetchOperations();
+    await this.fetchBalance();
+    this.setState({modalVisibility : false})
+  }
+
+  async editOperation(operation){
+    try {
+      let body = operation;
+      let response = await new HttpClient().put('/operations', body);
+      console.log(response);
+    } catch (e) {
+        console.log(e);
+    } 
+  }
+
+  openModal(op){
+    this.setState({
+      modalVisibility: true,
+      editOperation: op
+    })
+  }
+
   renderList(){
     return this.state.operations.map(op => {
       return (
@@ -90,7 +115,9 @@ export default class HomeScreen extends React.Component {
             date={this.formatDate(new Date(op.date))}
             concept={op.concept}
             onPressDelete={this.delete}
-            id={op.id}/>
+            onPressEdit={this.openModal}
+            id={op.id}
+            op={op}/>
         </View>
       )
     })
@@ -99,6 +126,11 @@ export default class HomeScreen extends React.Component {
   render() {
     return ( 
        <div id = "body">
+         <EditModal
+          onCloseFunction={this.closeModal}
+          onSaveFunction={this.editOperation}
+          modalVisible={this.state.modalVisibility}
+          editOperation={this.state.editOperation}/>
             <div id = "tittle">
               <p id = "tittle-text">Balance Actual - $ {this.state.balance}</p>
             </div>
