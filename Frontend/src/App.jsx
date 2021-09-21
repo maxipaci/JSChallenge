@@ -1,5 +1,5 @@
 import HomeScreen from './Screens/HomeScreen.jsx';
-import test2 from './Screens/Screen2.js';
+import CreateOperationScreen from './Screens/CreateOperationScreen.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -13,7 +13,7 @@ const linking = {
         path: "Home",
       },
       pantalla2: {
-        path: "pantalla2/"
+        path: "Operation"
       }
     }
   }
@@ -24,7 +24,7 @@ function App() {
     <NavigationContainer linking={linking}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="pantalla2" component={test2} options={{ headerShown: false }} />
+        <Stack.Screen name="Operation" component={CreateOperationScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -43,7 +43,7 @@ export default class EditModal extends Component{
                 <View style={styles.modalView}>
                     <View style={styles.formContainer}>
                         <Text style={styles.tittle}>Editar</Text>
-                        <View></View>
+                        <View><Text style={styles.butonTittle}>Monto</Text></View>
                         <TextInput 
                             style={styles.input}
                             placeholder={this.props.editOperation.amount}
@@ -61,9 +61,9 @@ export default class EditModal extends Component{
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.saveButton}
                                     onPress={this.onSavePress}
-                            ><Text style={styles.tittle}>Guardar</Text></TouchableOpacity>
+                            ><Text style={styles.butonTittle}>Guardar</Text></TouchableOpacity>
                             <TouchableOpacity style={styles.cancelButton}
-                            onPress={this.closeModal}><Text style={styles.tittle}>Cancelar</Text></TouchableOpacity>
+                            onPress={this.closeModal}><Text style={styles.butonTittle}>Cancelar</Text></TouchableOpacity>
                         </View>
                     </View>                   
                 </View>
@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
     },
     tittle:{
         fontSize: 20,
+        fontWeight: "bold",
+        color: "#FAFAFA"
+    },
+    butonTittle:{
         fontWeight: "bold",
         color: "#FAFAFA"
     },

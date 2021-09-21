@@ -43,7 +43,7 @@ class OperationService{
         }
 
         operation.id = await this.operationsRepo.nextId();
-        operation.date = new Date();
+        //operation.date = new Date();
         await this.operationsRepo.add(operation);
         return operation;
     }

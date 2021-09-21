@@ -5,7 +5,7 @@ import ListElement from '../Components/ListElement.jsx';
 import ListHeader from '../Components/ListHeader.jsx';
 import EditModal from '../Components/EditModal.jsx';
 import { ScrollView } from 'react-native-gesture-handler';
-import { View, Modal} from 'react-native';
+import { View} from 'react-native';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ export default class HomeScreen extends React.Component {
   }
   
   nav(){
-    this.props.navigation.navigate('pantalla2');
+    this.props.navigation.navigate('Operation');
   }
 
   formatDate(date){
@@ -127,27 +127,28 @@ export default class HomeScreen extends React.Component {
     return ( 
        <div id = "body">
          <EditModal
-          onCloseFunction={this.closeModal}
-          onSaveFunction={this.editOperation}
-          modalVisible={this.state.modalVisibility}
-          editOperation={this.state.editOperation}/>
-            <div id = "tittle">
-              <p id = "tittle-text">Balance Actual - $ {this.state.balance}</p>
-            </div>
-            <div id = "tittle">
-              <p id = "tittle-text">Ultimas 10 Operaciones</p>
-            </div>
-            <ListHeader/>  
-              <View style={{flex: 8, width: '90%', display: 'flex', margin: "10px"}}>
-                <ScrollView style={{flex:1, display: 'flex'}}>           
-                  {this.renderList()}           
-                </ScrollView>
-              </View>                  
-            <div id = "button-container">
-              <button id = "button" onClick={this.nav.bind(this)}>
-                <p id = "txt-button">Agregar</p>
-              </button>
-            </div>        
+            onCloseFunction={this.closeModal}
+            onSaveFunction={this.editOperation}
+            modalVisible={this.state.modalVisibility}
+            editOperation={this.state.editOperation}
+          />
+          <div id = "tittle">
+            <p id = "tittle-text">Balance Actual - $ {this.state.balance}</p>
+          </div>
+          <div id = "tittle">
+            <p id = "tittle-text">Ultimas 10 Operaciones</p>
+          </div>
+          <ListHeader/>  
+          <View style={{flex: 8, width: '90%', display: 'flex', margin: "10px"}}>
+            <ScrollView style={{flex:1, display: 'flex'}}>           
+              {this.renderList()}           
+            </ScrollView>
+          </View>                  
+          <div id = "button-container">
+            <button id = "button" onClick={this.nav.bind(this)}>
+              <p id = "txt-button">Agregar</p>
+            </button>
+          </div>        
       </div> 
     );
   }
