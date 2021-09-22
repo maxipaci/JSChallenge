@@ -6,7 +6,7 @@ import ListHeader from '../Components/ListHeader.jsx';
 import EditModal from '../Components/EditModal.jsx';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View} from 'react-native';
-import PostObserver from '../Events/Http/PostObserver.js';
+import PostObserver from '../Events/Http/HttpObserver.js';
 
 const postObserver = PostObserver.getInstance();
 
@@ -91,13 +91,10 @@ export default class HomeScreen extends React.Component {
 
   async delete(id){
     await this.deleteElement(id);
-    await this.fetchOperations();
-    await this.fetchBalance();
+    postObserver.postEvent();
   }
 
   async closeModal(){
-    await this.fetchOperations();
-    await this.fetchBalance();
     this.setState({modalVisibility : false})
   }
 

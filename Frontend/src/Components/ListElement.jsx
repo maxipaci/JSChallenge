@@ -26,19 +26,23 @@ export default class ListElement extends Component {
                     <Label
                         flex={1}
                         text={this.props.type}
-                        visible={this.props.withType}/>
+                        visible={this.props.withType}
+                        fontSize={"1.2vw"}/>
                     <Label
                         flex={1}
                         text={this.props.amount}
-                        visible={true}/>        
+                        visible={true}
+                        fontSize={"1.2vw"}/>        
                     <Label
                         flex={1}
                         text={this.props.date}
-                        visible={true}/>
+                        visible={true}
+                        fontSize={"1.2vw"}/>
                     <Label
                         flex={1}
                         text={this.props.concept}
-                        visible={true}/>
+                        visible={true}
+                        fontSize={"1.2vw"}/>
                 </div>
                 <div id="options">
                     <TouchableOpacity 
@@ -51,7 +55,7 @@ export default class ListElement extends Component {
                             borderRadius: "5px"
                         }}
                         onPress = {this.deleteElement}>
-                        <Text style={{fontWeight: 600, color: "white"}}>
+                        <Text style={{fontWeight: 600, color: "white", fontSize: "1vw"}}>
                             Eliminar
                         </Text>
                     </TouchableOpacity>
@@ -65,7 +69,7 @@ export default class ListElement extends Component {
                             borderRadius: "5px"
                         }}
                         onPress = {this.pressEdit}>
-                        <Text style={{fontWeight: 600, color: "white"}}>
+                        <Text style={{fontWeight: 600, color: "white", fontSize: "1vw"}}>
                         Editar
                         </Text>
                     </TouchableOpacity>

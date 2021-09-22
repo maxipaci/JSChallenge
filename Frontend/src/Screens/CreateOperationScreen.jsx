@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { View, StyleSheet, TextInput, Text, TouchableOpacity} from 'react-native';
 import Selector from '../Components/Selector';
 import { HttpClient } from '../services/HttpClient';
-import PostObserver from '../Events/Http/PostObserver.js';
+import PostObserver from '../Events/Http/HttpObserver.js';
 
 const postObserver = PostObserver.getInstance();
 const options = [
@@ -155,7 +155,8 @@ const styles = StyleSheet.create({
   },
   butonTittle:{
       fontWeight: "bold",
-      color: "#FAFAFA"
+      color: "#FAFAFA",
+      fontSize: "1.2vw"
   },
   buttonContainer:{
       width: "100%",

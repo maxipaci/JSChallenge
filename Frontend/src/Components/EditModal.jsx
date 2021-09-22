@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { View, Modal, StyleSheet, TextInput, Text, TouchableOpacity} from 'react-native';
+import PostObserver from '../Events/Http/HttpObserver.js';
+
+const postObserver = PostObserver.getInstance();
 
 
 
@@ -16,6 +19,7 @@ export default class EditModal extends Component{
     };
 
     async closeModal(){
+        postObserver.postEvent();
         await this.props.onCloseFunction();
     }
 
@@ -106,7 +110,8 @@ const styles = StyleSheet.create({
     },
     butonTittle:{
         fontWeight: "bold",
-        color: "#FAFAFA"
+        color: "#FAFAFA",
+        fontSize: "1.2vw"
     },
     buttonContainer:{
         width: "100%",

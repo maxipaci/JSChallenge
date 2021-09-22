@@ -9,19 +9,23 @@ export default class ListHeader extends Component {
                 <Label
                     flex={1}
                     text={"Tipo"}
-                    visible={this.props.includeType}/>
+                    visible={this.props.includeType}
+                    fontSize={"1.3vw"}/>
                 <Label
                     flex={1}
                     text={"Monto"}
-                    visible={true}/>        
+                    visible={true}
+                    fontSize={"1.3vw"}/>        
                 <Label
                     flex={1}
                     text={"Fecha"}
-                    visible={true}/>
+                    visible={true}
+                    fontSize={"1.3vw"}/>
                 <Label
                     flex={1}
                     text={"Concepto"}
-                    visible={true}/>
+                    visible={true}
+                    fontSize={"1.3vw"}/>
             </div>
         );
     }

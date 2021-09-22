@@ -10,7 +10,7 @@
 
 #tittle-text{
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.6vw;
   color: aliceblue;
 }
 
@@ -45,7 +45,7 @@
 
 #txt-button{
   color: white;
-  font-size: 400;
+  font-size: 1vw;
   margin: 5px;
 }
 

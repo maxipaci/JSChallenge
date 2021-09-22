@@ -13,7 +13,8 @@ export default class Label extends Component {
                         justifyContent: "center",
                         alignItems: "center",
                         color: "#FAFAFA",
-                        fontWeight: 600
+                        fontWeight: 600,
+                        fontSize: this.props.fontSize
                     }}>
                         {this.props.text}
                 </div>

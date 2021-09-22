@@ -7,7 +7,7 @@ import EditModal from '../Components/EditModal.jsx';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View} from 'react-native';
 import Selector from '../Components/Selector';
-import PostObserver from '../Events/Http/PostObserver.js';
+import PostObserver from '../Events/Http/HttpObserver.js';
 
 const postObserver = PostObserver.getInstance();
 const options = [
@@ -101,11 +101,10 @@ export default class OperationsScreen extends React.Component {
 
   async delete(id){
     await this.deleteElement(id);
-    await this.fetchOperations();
+    postObserver.postEvent();
   }
 
   async closeModal(){
-    await this.fetchOperations();
     this.setState({modalVisibility : false})
   }
 
@@ -179,5 +178,9 @@ export default class OperationsScreen extends React.Component {
                  
       </div> 
     );
+  }
+
+  componentWillUnmount() {
+    postObserver.desuscribeToPostEvent(this);
   }
 }
