@@ -5,7 +5,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { View, StyleSheet, TextInput, Text, TouchableOpacity} from 'react-native';
 import Selector from '../Components/Selector';
 import { HttpClient } from '../services/HttpClient';
+import PostObserver from '../Events/Http/PostObserver.js';
 
+const postObserver = PostObserver.getInstance();
 const options = [
   {
     value: 1,
@@ -43,7 +45,9 @@ export default class CreateOperationScreen extends React.Component {
               typeId : this.state.typeId
             }
           let response = await new HttpClient().post('/operations', body);
+          postObserver.postEvent();
           console.log(response)
+          this.goBack();
         } catch (e) {
             console.log(e);
         } 
@@ -59,36 +63,48 @@ export default class CreateOperationScreen extends React.Component {
         return (
             <View style={styles.modalView}>
               <View style={styles.formContainer}>
-                  <Text style={styles.tittle}>Crear Operacion</Text>
-                  <View><Text style={styles.butonTittle}>Monto</Text></View>
-                  <TextInput 
-                      style={styles.input}
-                      placeholder="600"
-                      onChangeText={e => {this.setState({amount : e})}}/>
-                  <View></View>
-                  <DatePicker
-                    selected={this.state.startDate}
-                    onChange={(date) => this.setState({startDate : date})}
-                    customInput={<ExampleCustomInput />}
-                  />
-                  <View></View>
-                  <TextInput 
-                      style={styles.input}
-                      placeholder="Comida"
-                      onChangeText={e => {this.setState({concept : e})}}/>
-                  <View></View>
-                  <Selector
+                <Text style={styles.tittle}>Crear Operacion</Text>
+                <View>
+                  <Text style={styles.butonTittle}>Monto</Text>
+                </View>
+                <TextInput 
+                  style={styles.input}
+                  placeholder="600"
+                  onChangeText={e => {this.setState({amount : parseInt(e)})}}
+                />
+                <View></View>
+                <DatePicker
+                  selected={this.state.startDate}
+                  onChange={(date) => this.setState({startDate : date})}
+                  customInput={<ExampleCustomInput />}
+                />
+                <View></View>
+                <TextInput 
+                  style={styles.input}
+                  placeholder="Comida"
+                  onChangeText={e => {this.setState({concept : e})}}
+                />
+                <View></View>
+                <Selector
                   options={options}
-                  context={this}/>
-                  <View style={styles.buttonContainer}>
-                      <TouchableOpacity style={styles.saveButton}
-                      onPress={this.postOperation}
-                      ><Text style={styles.butonTittle}>Guardar</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.cancelButton}
-                      onPress={this.goBack}><Text style={styles.butonTittle}>Cancelar</Text></TouchableOpacity>
-                  </View>
+                  context={this}
+                />
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity 
+                    style={styles.saveButton}
+                    onPress={this.postOperation}
+                  >
+                    <Text style={styles.butonTittle}>Guardar</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={styles.cancelButton}
+                    onPress={this.goBack}
+                  >
+                    <Text style={styles.butonTittle}>Cancelar</Text>
+                  </TouchableOpacity>
+                </View>
               </View>                   
-          </View>                 
+            </View>                 
          );
       }
 }

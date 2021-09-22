@@ -32,7 +32,7 @@ export default class EditModal extends Component{
     }
 
     render(){
-        return(
+        return(            
             <Modal
                 animationType="slide"
                 transparent={false}

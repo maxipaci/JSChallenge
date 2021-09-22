@@ -1,17 +1,7 @@
-#list{
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  flex: 8;
-  margin: 10px;
-  width: 90%;
-}
+
 
 #tittle{
   width: 90%;
-  display: flex;
   flex: 1;
   flex-direction: row;
   justify-content: flex-start;
@@ -25,20 +15,31 @@
 }
 
 #button-container{
-  display: flex;
   flex: 1;
   width: 90%;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }
 
 #button{
-  display: flex;
+  flex: 1;
   height: 70%;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
   background-color: #4DB748;
+  border: 0px;
+}
+
+#list-button{
+  flex: 1;
+  margin-left: 10px;
+  height: 70%;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: aqua;
   border: 0px;
 }
 
@@ -50,12 +51,14 @@
 
 
 #body {
-  background-color: #282c34;
+  height: 100%;
+}
+
+#containerB{
   display: flex;
-  flex: 1;
-  height: 100vh;
+  height: 100%;
+  background-color: #282c34;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 

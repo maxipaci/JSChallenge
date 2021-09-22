@@ -19,12 +19,30 @@ const linking = {
   }
 }
 
+const MyTheme = {
+  colors: {
+    background: '#282c34'
+  },
+};
+
+const config = {
+  animation: 'timing',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
 function App() {
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer linking={linking} theme={MyTheme}>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Operation" component={CreateOperationScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false, animationEnabled: true, transitionSpec:{open:config, close: config}}} />
+        <Stack.Screen name="Operation" component={CreateOperationScreen} options={{ headerShown: false, animationEnabled: true, transitionSpec:{open:config, close: config}}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

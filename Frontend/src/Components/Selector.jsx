@@ -30,7 +30,7 @@ export default class Selector extends Component {
     render() {
         return (
             <select id = "select" value={this.state.value} onChange={(event) => this.handleChange(event)}>
-                      {this.renderOptions()}
+                {this.renderOptions()}
             </select>
         );
     }

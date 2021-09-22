@@ -6,6 +6,9 @@ import ListHeader from '../Components/ListHeader.jsx';
 import EditModal from '../Components/EditModal.jsx';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View} from 'react-native';
+import PostObserver from '../Events/Http/PostObserver.js';
+
+const postObserver = PostObserver.getInstance();
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -25,12 +28,18 @@ export default class HomeScreen extends React.Component {
   async componentDidMount() {
     await this.fetchOperations();
     await this.fetchBalance();
+    postObserver.suscribeToPostEvent(this);
   };
+
+  async onEvent() {
+    await this.fetchOperations();
+    await this.fetchBalance();
+  }
 
   fetchOperations = async () => {
     try {
         let params = '?limit=' + 10;
-        let response = await new HttpClient().get('/operations' + params);
+        let response = await new HttpClient().get('/operations');
         let str = response.data;
         this.setState({ operations: str });
     } catch (e) {
@@ -126,6 +135,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return ( 
        <div id = "body">
+         <div id = "containerB">
          <EditModal
             onCloseFunction={this.closeModal}
             onSaveFunction={this.editOperation}
@@ -139,8 +149,8 @@ export default class HomeScreen extends React.Component {
             <p id = "tittle-text">Ultimas 10 Operaciones</p>
           </div>
           <ListHeader/>  
-          <View style={{flex: 8, width: '90%', display: 'flex', margin: "10px"}}>
-            <ScrollView style={{flex:1, display: 'flex'}}>           
+          <View style={{flex: 8, width: '90%', margin: "10px", flexBasis: 0}}>
+            <ScrollView>           
               {this.renderList()}           
             </ScrollView>
           </View>                  
@@ -148,8 +158,17 @@ export default class HomeScreen extends React.Component {
             <button id = "button" onClick={this.nav.bind(this)}>
               <p id = "txt-button">Agregar</p>
             </button>
-          </div>        
+            <button id = "list-button">
+              <p id = "txt-button">Ver todas</p>
+            </button>
+          </div>
+         </div>
+                 
       </div> 
     );
+  }
+
+  componentWillUnmount() {
+    postObserver.desuscribeToPostEvent(this);
   }
 }
