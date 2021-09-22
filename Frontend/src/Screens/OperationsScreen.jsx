@@ -6,40 +6,54 @@ import ListHeader from '../Components/ListHeader.jsx';
 import EditModal from '../Components/EditModal.jsx';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View} from 'react-native';
+import Selector from '../Components/Selector';
 import PostObserver from '../Events/Http/PostObserver.js';
 
 const postObserver = PostObserver.getInstance();
+const options = [
+    {
+      value: 1,
+      label: "Ingreso"
+    },
+    {
+      value: 2,
+      label: "Egreso"
+    }
+  ]
 
-export default class HomeScreen extends React.Component {
+export default class OperationsScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       operations : [],
       balance : 0,
       modalVisibility : false,
-      editOperation: {}     
+      editOperation: {},
+      type: "Ingreso"    
     }
     this.delete = this.delete.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.editOperation = this.editOperation.bind(this);
+    this.onSelectorChange = this.onSelectorChange.bind(this);
   }
 
   async componentDidMount() {
     await this.fetchOperations();
-    await this.fetchBalance();
     postObserver.suscribeToPostEvent(this);
   };
 
   async onEvent() {
     await this.fetchOperations();
-    await this.fetchBalance();
+  }
+
+  onSelectorChange(type, typeId){
+    this.setState({type : type});
   }
 
   fetchOperations = async () => {
     try {
-        let params = '?limit=' + 10;
-        let response = await new HttpClient().get('/operations' + params);
+        let response = await new HttpClient().get('/operations');
         let str = response.data;
         this.setState({ operations: str });
     } catch (e) {
@@ -59,10 +73,6 @@ export default class HomeScreen extends React.Component {
   
   nav(){
     this.props.navigation.navigate('Create');
-  }
-
-  navToList(){
-    this.props.navigation.navigate('Operations');
   }
 
   formatDate(date){
@@ -92,12 +102,10 @@ export default class HomeScreen extends React.Component {
   async delete(id){
     await this.deleteElement(id);
     await this.fetchOperations();
-    await this.fetchBalance();
   }
 
   async closeModal(){
     await this.fetchOperations();
-    await this.fetchBalance();
     this.setState({modalVisibility : false})
   }
 
@@ -119,7 +127,7 @@ export default class HomeScreen extends React.Component {
   }
 
   renderList(){
-    return this.state.operations.map(op => {
+    return this.state.operations.filter(e => e.type == this.state.type).map(op => {
       return (
         <View key={op.id}>
           <ListElement
@@ -127,7 +135,6 @@ export default class HomeScreen extends React.Component {
             amount={op.amount}
             date={this.formatDate(new Date(op.date))}
             concept={op.concept}
-            withType={true}
             onPressDelete={this.delete}
             onPressEdit={this.openModal}
             id={op.id}
@@ -148,13 +155,16 @@ export default class HomeScreen extends React.Component {
             editOperation={this.state.editOperation}
           />
           <div id = "tittle">
-            <p id = "tittle-text">Balance Actual - $ {this.state.balance}</p>
+            <p id = "tittle-text">Todas las operaciones</p>
           </div>
           <div id = "tittle">
-            <p id = "tittle-text">Ultimas 10 Operaciones</p>
+            <p id = "tittle-text">Filtrar por</p>
+            <Selector
+            options={options}
+            onChange={this.onSelectorChange}/>
           </div>
           <ListHeader
-            includeType={true}/>  
+            includeType={false}/>  
           <View style={{flex: 8, width: '90%', margin: "10px", flexBasis: 0}}>
             <ScrollView>           
               {this.renderList()}           
@@ -164,17 +174,10 @@ export default class HomeScreen extends React.Component {
             <button id = "button" onClick={this.nav.bind(this)}>
               <p id = "txt-button">Agregar</p>
             </button>
-            <button id = "list-button" onClick={this.navToList.bind(this)}>
-              <p id = "txt-button">Ver todas</p>
-            </button>
           </div>
          </div>
                  
       </div> 
     );
-  }
-
-  componentWillUnmount() {
-    postObserver.desuscribeToPostEvent(this);
   }
 }

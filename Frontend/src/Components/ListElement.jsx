@@ -25,16 +25,20 @@ export default class ListElement extends Component {
                 <div id = "container">
                     <Label
                         flex={1}
-                        text={this.props.type}/>
+                        text={this.props.type}
+                        visible={this.props.withType}/>
                     <Label
                         flex={1}
-                        text={this.props.amount}/>        
+                        text={this.props.amount}
+                        visible={true}/>        
                     <Label
                         flex={1}
-                        text={this.props.date}/>
+                        text={this.props.date}
+                        visible={true}/>
                     <Label
                         flex={1}
-                        text={this.props.concept}/>
+                        text={this.props.concept}
+                        visible={true}/>
                 </div>
                 <div id="options">
                     <TouchableOpacity 

@@ -8,16 +8,20 @@ export default class ListHeader extends Component {
             <div id = "header-container">
                 <Label
                     flex={1}
-                    text={"Tipo"}/>
+                    text={"Tipo"}
+                    visible={this.props.includeType}/>
                 <Label
                     flex={1}
-                    text={"Monto"}/>        
+                    text={"Monto"}
+                    visible={true}/>        
                 <Label
                     flex={1}
-                    text={"Fecha"}/>
+                    text={"Fecha"}
+                    visible={true}/>
                 <Label
                     flex={1}
-                    text={"Concepto"}/>
+                    text={"Concepto"}
+                    visible={true}/>
             </div>
         );
     }

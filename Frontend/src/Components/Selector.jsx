@@ -23,8 +23,7 @@ export default class Selector extends Component {
 
     handleChange(event){
         this.setState({value : parseInt(event.target.value)})
-        console.log(event.target.value)
-        this.props.context.setState({typeId : parseInt(event.target.value)})
+        this.props.onChange(event.target[event.target.selectedIndex].text, event.target.value)
     }
 
     render() {

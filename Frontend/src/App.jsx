@@ -1,5 +1,6 @@
 import HomeScreen from './Screens/HomeScreen.jsx';
 import CreateOperationScreen from './Screens/CreateOperationScreen.jsx';
+import OperationsScreen from './Screens/OperationsScreen.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -13,7 +14,10 @@ const linking = {
         path: "Home",
       },
       pantalla2: {
-        path: "Operation"
+        path: "Create"
+      },
+      pantalla3: {
+        path: "Operations"
       }
     }
   }
@@ -42,7 +46,8 @@ function App() {
     <NavigationContainer linking={linking} theme={MyTheme}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false, animationEnabled: true, transitionSpec:{open:config, close: config}}} />
-        <Stack.Screen name="Operation" component={CreateOperationScreen} options={{ headerShown: false, animationEnabled: true, transitionSpec:{open:config, close: config}}} />
+        <Stack.Screen name="Create" component={CreateOperationScreen} options={{ headerShown: false, animationEnabled: true, transitionSpec:{open:config, close: config}}} />
+        <Stack.Screen name="Operations" component={OperationsScreen} options={{ headerShown: false, animationEnabled: true, transitionSpec:{open:config, close: config}}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

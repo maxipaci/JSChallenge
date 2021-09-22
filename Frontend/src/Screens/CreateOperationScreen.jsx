@@ -30,6 +30,7 @@ export default class CreateOperationScreen extends React.Component {
         }
         this.goBack = this.goBack.bind(this);
         this.postOperation = this.postOperation.bind(this);
+        this.onSelectorChange = this.onSelectorChange.bind(this);
       }
 
       goBack(){
@@ -51,6 +52,10 @@ export default class CreateOperationScreen extends React.Component {
         } catch (e) {
             console.log(e);
         } 
+      }
+
+      onSelectorChange(type, typeId){
+        this.setState({typeId : parseInt(typeId)})
       }
 
       render(){
@@ -88,6 +93,7 @@ export default class CreateOperationScreen extends React.Component {
                 <Selector
                   options={options}
                   context={this}
+                  onChange={this.onSelectorChange}
                 />
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity 
