@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Text} from 'react-native';
 
 export default class Label extends Component {
     render() {
@@ -16,7 +17,13 @@ export default class Label extends Component {
                         fontWeight: 600,
                         fontSize: this.props.fontSize
                     }}>
-                        {this.props.text}
+                        <Text style={{
+                            color: "#FAFAFA",
+                            fontWeight: 600,
+                            fontSize: this.props.fontSize,
+                            margin: "10px"
+                        }}>{this.props.text}</Text>
+                        
                 </div>
             );
         } else{

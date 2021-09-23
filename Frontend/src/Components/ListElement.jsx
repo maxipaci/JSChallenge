@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import Label from './Label.jsx';
 import './CSS/ListElement.css';
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 export default class ListElement extends Component {
     constructor(props) {
@@ -45,34 +46,40 @@ export default class ListElement extends Component {
                         fontSize={"1.2vw"}/>
                 </div>
                 <div id="options">
-                    <TouchableOpacity 
+                <TouchableOpacity 
                         style={{
                             display : "flex",
                             flex : 1, 
                             alignItems: "center", 
-                            backgroundColor: "red",
                             border: "1px solid #FAFAFA",
-                            borderRadius: "5px"
-                        }}
-                        onPress = {this.deleteElement}>
-                        <Text style={{fontWeight: 600, color: "white", fontSize: "1vw"}}>
-                            Eliminar
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={{
-                            display : "flex",
-                            flex : 1, 
-                            alignItems: "center", 
-                            backgroundColor: "blue",
-                            border: "1px solid #FAFAFA",
-                            borderRadius: "5px"
+                            borderRadius: "5px",
+                            flexDirection: "row",
+                            justifyContent: "center"
                         }}
                         onPress = {this.pressEdit}>
-                        <Text style={{fontWeight: 600, color: "white", fontSize: "1vw"}}>
+                        <Text style={{fontWeight: 600, color: "black", fontSize: "1vw", margin: "3px"}}>
                         Editar
                         </Text>
+                        <FaEdit style={{fontSize: "1vw"}}/>
                     </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={{
+                            display : "flex",
+                            flex : 1, 
+                            alignItems: "center", 
+                            backgroundColor: "#ad262b",
+                            border: "1px solid #FAFAFA",
+                            borderRadius: "5px",
+                            flexDirection: "row",
+                            justifyContent: "center"
+                        }}
+                        onPress = {this.deleteElement}>
+                        <Text style={{fontWeight: 600, color: "black", fontSize: "1vw", margin: "3px"}}>
+                            Eliminar
+                        </Text>
+                        <FaTrashAlt style={{fontSize: "1vw"}}/>
+                    </TouchableOpacity>
+                    
                 </div>
             </div>
         );

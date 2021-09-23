@@ -211,7 +211,8 @@ const styles = StyleSheet.create({
       width: "100%",
       flexDirection: "row",
       height: 40,
-      justifyContent: "center"
+      justifyContent: "center",
+      marginTop: 5
   },
   saveButton:{
       backgroundColor: "green",
