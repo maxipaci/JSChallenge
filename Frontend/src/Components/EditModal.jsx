@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Modal, StyleSheet, TextInput, Text, TouchableOpacity} from 'react-native';
 import PostObserver from '../Events/Http/HttpObserver.js';
+import { Validator } from '../Utils/Validator';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const postObserver = PostObserver.getInstance();
 
@@ -12,7 +15,13 @@ export default class EditModal extends Component{
         this.state = {
             amount: 0,
             concept: "",
-            date: ""
+            date: new Date(),
+            colorInputAmount: '#D1D1D1',
+            amountCorrectionTxt: "",
+            isValidAmount: false,
+            colorInputConcept: '#D1D1D1',
+            cocneptCorrectionTxt: "",
+            isValidConcept: false
         };
         this.closeModal = this.closeModal.bind(this);
         this.onSavePress = this.onSavePress.bind(this);
@@ -21,6 +30,45 @@ export default class EditModal extends Component{
     async closeModal(){
         postObserver.postEvent();
         await this.props.onCloseFunction();
+        this.resetState();
+    }
+
+    resetState(){
+        this.setState({
+            amount: 0,
+            concept: "",
+            date: new Date(),
+            colorInputAmount: '#D1D1D1',
+            amountCorrectionTxt: "",
+            isValidAmount: false,
+            colorInputConcept: '#D1D1D1',
+            cocneptCorrectionTxt: "",
+            isValidConcept: false
+        })
+    }
+
+    onAmountChange(amount){
+        if(amount.length == 0){
+          this.setState({colorInputAmount: "#D1D1D1", amount: 0, amountCorrectionTxt: "", isValidAmount: false})
+        }
+        else if(Validator.isValidAmount(amount)){
+          this.setState({colorInputAmount: "#4DB748", amount: parseInt(amount), amountCorrectionTxt: "", isValidAmount: true})
+
+        } else {
+          this.setState({colorInputAmount: "red", amountCorrectionTxt: "Monto Erroneo", isValidAmount: false})
+        }
+      }
+
+    onConceptChange(concept){
+      if(concept.length == 0){
+        this.setState({colorInputConcept: "#D1D1D1", concept: 0, conceptCorrectionTxt: "", isValidConcept: false})
+      }
+      else if(Validator.isValidConcept(concept)){
+        this.setState({colorInputConcept: "#4DB748", concept: concept, conceptCorrectionTxt: "", isValidConcept: true})
+
+        } else {
+          this.setState({colorInputConcept: "red", conceptCorrectionTxt: "Concepto Erroneo", isValidConcept: false})
+        }
     }
 
     async onSavePress(){
@@ -29,13 +77,19 @@ export default class EditModal extends Component{
         operation.amount = this.state.amount;
         operation.date = new Date(this.state.date);
         operation.id = this.props.editOperation.id;
-        operation.typeId = 2;
+        operation.typeId = this.props.editOperation.type == "Ingreso" ? 1 : 2;
         console.log(operation);
         await this.props.onSaveFunction(operation);
         await this.closeModal();
     }
 
     render(){
+        const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
+            <TouchableOpacity style={styles.dateInput} onPress={onClick} ref={ref}>
+              {value}
+            </TouchableOpacity>
+          ));
+
         return(            
             <Modal
                 animationType="slide"
@@ -47,24 +101,41 @@ export default class EditModal extends Component{
                 <View style={styles.modalView}>
                     <View style={styles.formContainer}>
                         <Text style={styles.tittle}>Editar</Text>
-                        <View><Text style={styles.butonTittle}>Monto</Text></View>
+                        <View style = {styles.correctionTxtContainer}>
+                            <Text style ={{color: "red"}}>
+                                {this.state.amountCorrectionTxt}
+                            </Text>
+                        </View>
                         <TextInput 
-                            style={styles.input}
-                            placeholder={this.props.editOperation.amount}
-                            onChangeText={e => {this.setState({amount : e})}}/>
+                            style={[styles.input,
+                                {
+                                  border: "2px solid " + this.state.colorInputAmount
+                                 }]}
+                            placeholder={"$ " + this.props.editOperation.amount}
+                            onChangeText={(e) => this.onAmountChange(e)}/>
                         <View></View>
+                        <DatePicker
+                            selected={this.state.date}
+                            onChange={(date) => this.setState({startDate : date})}
+                            customInput={<ExampleCustomInput />}
+                        />
+                        <View style = {styles.correctionTxtContainer}>
+                            <Text style ={{color: "red"}}>
+                                {this.state.conceptCorrectionTxt}
+                            </Text>
+                        </View>
                         <TextInput 
-                            style={styles.input}
-                            placeholder={this.props.editOperation.date}
-                            onChangeText={e => {this.setState({date : e})}}/>
-                        <View></View>
-                        <TextInput 
-                            style={styles.input}
+                            style={[styles.input,
+                                {
+                                  border: "2px solid " + this.state.colorInputConcept
+                                 }]}
                             placeholder={this.props.editOperation.concept}
-                            onChangeText={e => {this.setState({concept : e})}}/>
+                            onChangeText={(e) => this.onConceptChange(e)}/>
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.saveButton}
+                            <TouchableOpacity style={[styles.saveButton, {backgroundColor: 
+                      !this.state.isValidAmount || !this.state.isValidConcept ? '#D1D1D1' : "green"}]}
                                     onPress={this.onSavePress}
+                                    disabled={!this.state.isValidAmount || !this.state.isValidConcept}
                             ><Text style={styles.butonTittle}>Guardar</Text></TouchableOpacity>
                             <TouchableOpacity style={styles.cancelButton}
                             onPress={this.closeModal}><Text style={styles.butonTittle}>Cancelar</Text></TouchableOpacity>
@@ -85,6 +156,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems:"center"
     },
+    dateInput:{
+        backgroundColor: "white",
+        padding: 20,
+        fontWeight: 500,
+        height: 40,
+        justifyContent: 'center',
+        borderRadius: 5,
+      },
     formContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -102,6 +181,12 @@ const styles = StyleSheet.create({
         width: '100%',
         color: 'black',
         margin: 5
+    },
+    correctionTxtContainer:{
+        width: "100%",
+        flexDirection: "row",
+        alignItems:"flex-start",
+        justifyContent: "flex-start"
     },
     tittle:{
         fontSize: 20,
