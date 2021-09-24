@@ -99,7 +99,9 @@ export default class CreateOperationScreen extends React.Component {
         return (
             <View style={styles.modalView}>
               <View style={styles.formContainer}>
-                <Text style={styles.tittle}>Crear Operacion</Text>
+                <Text style={styles.tittle}>
+                  Crear Operacion
+                </Text>
                 <View style = {styles.correctionTxtContainer}>
                   <Text style ={{color: "red"}}>
                     {this.state.amountCorrectionTxt}
@@ -149,13 +151,17 @@ export default class CreateOperationScreen extends React.Component {
                     onPress={this.postOperation}
                     disabled={!this.state.isValidAmount || !this.state.isValidConcept}
                   >
-                    <Text style={styles.butonTittle}>Guardar</Text>
+                    <Text style={styles.butonTittle}>
+                      Guardar
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity 
                     style={styles.cancelButton}
                     onPress={this.goBack}
                   >
-                    <Text style={styles.butonTittle}>Cancelar</Text>
+                    <Text style={styles.butonTittle}>
+                      Cancelar
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>                   

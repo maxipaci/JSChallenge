@@ -43,10 +43,11 @@ export default class ListElement extends Component {
                         flex={1}
                         text={this.props.concept}
                         visible={true}
-                        fontSize={"1.2vw"}/>
+                        fontSize={"1.2vw"}
+                        hasTooltip={true}/>
                 </div>
                 <div id="options">
-                <TouchableOpacity 
+                    <TouchableOpacity 
                         style={{
                             display : "flex",
                             flex : 1, 
@@ -58,7 +59,7 @@ export default class ListElement extends Component {
                         }}
                         onPress = {this.pressEdit}>
                         <Text style={{fontWeight: 600, color: "black", fontSize: "1vw", margin: "3px"}}>
-                        Editar
+                            Editar
                         </Text>
                         <FaEdit style={{fontSize: "1vw"}}/>
                     </TouchableOpacity>
@@ -78,8 +79,7 @@ export default class ListElement extends Component {
                             Eliminar
                         </Text>
                         <FaTrashAlt style={{fontSize: "1vw"}}/>
-                    </TouchableOpacity>
-                    
+                    </TouchableOpacity>                   
                 </div>
             </div>
         );

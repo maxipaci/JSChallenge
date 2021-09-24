@@ -132,18 +132,30 @@ export default class EditModal extends Component{
                             placeholder={this.props.editOperation.concept}
                             onChangeText={(e) => this.onConceptChange(e)}/>
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={[styles.saveButton, {backgroundColor: 
-                      !this.state.isValidAmount || !this.state.isValidConcept ? '#D1D1D1' : "green"}]}
-                                    onPress={this.onSavePress}
-                                    disabled={!this.state.isValidAmount || !this.state.isValidConcept}
-                            ><Text style={styles.butonTittle}>Guardar</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.cancelButton}
-                            onPress={this.closeModal}><Text style={styles.butonTittle}>Cancelar</Text></TouchableOpacity>
+                            <TouchableOpacity 
+                                style={[styles.saveButton, 
+                                        {
+                                            backgroundColor: 
+                                                !this.state.isValidAmount || !this.state.isValidConcept ? '#D1D1D1' : "green"
+                                        }
+                                    ]}
+                                onPress={this.onSavePress}
+                                disabled={!this.state.isValidAmount || !this.state.isValidConcept}
+                            >
+                                <Text style={styles.butonTittle}>
+                                    Guardar
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={styles.cancelButton}
+                                onPress={this.closeModal}>
+                                <Text style={styles.butonTittle}>
+                                    Cancelar
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </View>                   
-                </View>
-                
-
+                </View>              
             </Modal>
         )
     }
