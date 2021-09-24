@@ -55,7 +55,7 @@ export default class EditModal extends Component{
           this.setState({colorInputAmount: "#4DB748", amount: parseInt(amount), amountCorrectionTxt: "", isValidAmount: true})
 
         } else {
-          this.setState({colorInputAmount: "red", amountCorrectionTxt: "Monto Erroneo", isValidAmount: false})
+          this.setState({colorInputAmount: "red", amountCorrectionTxt: "Monto Erroneo (ingrese cifras numericas mayores a 0)", isValidAmount: false})
         }
       }
 
@@ -67,7 +67,7 @@ export default class EditModal extends Component{
         this.setState({colorInputConcept: "#4DB748", concept: concept, conceptCorrectionTxt: "", isValidConcept: true})
 
         } else {
-          this.setState({colorInputConcept: "red", conceptCorrectionTxt: "Concepto Erroneo", isValidConcept: false})
+          this.setState({colorInputConcept: "red", conceptCorrectionTxt: "Concepto Invalido (maximo 500 caracteres)", isValidConcept: false})
         }
     }
 

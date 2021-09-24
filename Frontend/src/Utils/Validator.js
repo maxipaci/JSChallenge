@@ -5,6 +5,6 @@ export class Validator{
 
 
     static isValidConcept(concept){
-        return concept.length > 0 && concept.length < 10;
+        return concept.length > 0 && concept.length < 500;
     }
 }

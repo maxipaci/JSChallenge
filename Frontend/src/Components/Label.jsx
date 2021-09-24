@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Text} from 'react-native';
 
 export default class Label extends Component {
-
+    constructor(props) {
+        super(props);
+    }
 
 
     onPressTxt(){
