@@ -3,6 +3,7 @@ import { View, Modal, StyleSheet, TextInput, Text, TouchableOpacity} from 'react
 import PostObserver from '../Events/Http/HttpObserver.js';
 import { Validator } from '../Utils/Validator';
 import DatePicker from 'react-datepicker';
+import { FaRegTimesCircle } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 
 const postObserver = PostObserver.getInstance();
@@ -49,25 +50,53 @@ export default class EditModal extends Component{
 
     onAmountChange(amount){
         if(amount.length == 0){
-          this.setState({colorInputAmount: "#D1D1D1", amount: 0, amountCorrectionTxt: "", isValidAmount: false})
+          this.setState({
+              colorInputAmount: "#D1D1D1", 
+              amount: 0, 
+              amountCorrectionTxt: "", 
+              isValidAmount: false
+            })
         }
         else if(Validator.isValidAmount(amount)){
-          this.setState({colorInputAmount: "#4DB748", amount: parseInt(amount), amountCorrectionTxt: "", isValidAmount: true})
+          this.setState({
+              colorInputAmount: "#4DB748", 
+              amount: parseInt(amount), 
+              amountCorrectionTxt: "", 
+              isValidAmount: true
+            })
 
         } else {
-          this.setState({colorInputAmount: "red", amountCorrectionTxt: "Monto Erroneo (ingrese cifras numericas mayores a 0)", isValidAmount: false})
+          this.setState({
+              colorInputAmount: "red", 
+              amountCorrectionTxt: "Monto Erroneo (ingrese cifras numericas mayores a 0)", 
+              isValidAmount: false
+            })
         }
       }
 
     onConceptChange(concept){
       if(concept.length == 0){
-        this.setState({colorInputConcept: "#D1D1D1", concept: 0, conceptCorrectionTxt: "", isValidConcept: false})
+        this.setState({
+            colorInputConcept: "#D1D1D1", 
+            concept: 0, 
+            conceptCorrectionTxt: "", 
+            isValidConcept: false
+        })
       }
       else if(Validator.isValidConcept(concept)){
-        this.setState({colorInputConcept: "#4DB748", concept: concept, conceptCorrectionTxt: "", isValidConcept: true})
+        this.setState({
+            colorInputConcept: "#4DB748", 
+            concept: concept, 
+            conceptCorrectionTxt: "", 
+            isValidConcept: true
+        })
 
         } else {
-          this.setState({colorInputConcept: "red", conceptCorrectionTxt: "Concepto Invalido (maximo 500 caracteres)", isValidConcept: false})
+          this.setState({
+              colorInputConcept: "red", 
+              conceptCorrectionTxt: "Concepto Invalido (maximo 500 caracteres)", 
+              isValidConcept: false
+            })
         }
     }
 
@@ -84,7 +113,7 @@ export default class EditModal extends Component{
     }
 
     render(){
-        const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
+        const DatePickerButton = React.forwardRef(({ value, onClick }, ref) => (
             <TouchableOpacity style={styles.dateInput} onPress={onClick} ref={ref}>
               {value}
             </TouchableOpacity>
@@ -99,6 +128,19 @@ export default class EditModal extends Component{
                 presentationStyle="fullScreen"
             >
                 <View style={styles.modalView}>
+                    <View style={styles.overlay}>
+                        <TouchableOpacity 
+                            style={{padding: "5px"}}
+                            onPress={this.closeModal}
+                        >
+                            <FaRegTimesCircle 
+                                style={{
+                                    fontSize: "2.5vw", 
+                                    color: "red"
+                                }}
+                            />
+                        </TouchableOpacity>    
+                    </View>
                     <View style={styles.formContainer}>
                         <Text style={styles.tittle}>Editar</Text>
                         <View style = {styles.correctionTxtContainer}>
@@ -117,7 +159,7 @@ export default class EditModal extends Component{
                         <DatePicker
                             selected={this.state.date}
                             onChange={(date) => this.setState({startDate : date})}
-                            customInput={<ExampleCustomInput />}
+                            customInput={<DatePickerButton/>}
                         />
                         <View style = {styles.correctionTxtContainer}>
                             <Text style ={{color: "red"}}>
@@ -231,5 +273,13 @@ const styles = StyleSheet.create({
         borderRadius: "5px",
         justifyContent: "center",
         alignItems: "center"
+    },
+    overlay:{
+        display: "flex", 
+        position: "absolute",
+        overflow: "visible", 
+        alignItems: "flex-start", 
+        width: "100%", 
+        height: "100%"
     }
 })
