@@ -4,7 +4,7 @@ export class HttpClient {
     http;
 
     constructor() {
-        const baseURL = `http://192.168.0.92:5000`;
+        const baseURL = `http://localhost:5000`;
 
         this.http = axios.create({
             baseURL: baseURL,
