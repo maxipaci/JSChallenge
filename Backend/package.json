@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node Api/App.js",
+    "inmemory-db-server": "set NODE_ENV=inmemory && node Api/App.js",
     "buildDB": "node Infraestructure\\Data\\Scripts\\DatabaseGenerator.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
